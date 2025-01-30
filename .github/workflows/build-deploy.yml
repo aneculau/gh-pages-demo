@@ -1,0 +1,40 @@
+name: Deploy react app
+permission:
+  contents: write
+on: 
+  workflow_dispatch:
+  pull_request:
+    types:
+      - opened
+  push:
+    branches:
+      - main
+      - 'hotfix-*'
+      - 'feature/**'
+    path-ignore:
+      - '.github/workflows/*'
+  
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code
+        uses: actions/checkout@v3
+      - name: Install node v22.1
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22.1
+          
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+      - name: build
+        run: npm run build
+      - name: test
+        run: npm run test 
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          folder: build
+          branch: gh-pages
+        env:
+          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
