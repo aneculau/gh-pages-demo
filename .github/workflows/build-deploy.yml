@@ -44,7 +44,7 @@ jobs:
       
   deploy:     
     runs-on: ubuntu-latest
-    steps: 
+    steps:
       - name: Code
       uses: actions/checkout@v3
       - name: Install node v22.1
