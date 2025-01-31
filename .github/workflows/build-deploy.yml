@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: 22.1
       - name: Install dependencies
-        un: npm install --legacy-peer-deps
+        run: npm install --legacy-peer-deps
       - name: test
         run: npm run test 
   build:
