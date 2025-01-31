@@ -18,14 +18,14 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-     - name: Code
+      - name: Code
         uses: actions/checkout@v3
       - name: Install node v22.1
         uses: actions/setup-node@v3
         with:
           node-version: 22.1
       - name: Install dependencies
-        run: npm install --legacy-peer-deps
+        un: npm install --legacy-peer-deps
       - name: test
         run: npm run test 
   build:
