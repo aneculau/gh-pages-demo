@@ -15,7 +15,20 @@ on:
       - '.github/workflows/*'
   
 jobs:
-  deploy:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+     - name: Code
+        uses: actions/checkout@v3
+      - name: Install node v22.1
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22.1
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+      - name: test
+        run: npm run test 
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Code
@@ -24,17 +37,28 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 22.1
-          
       - name: Install dependencies
         run: npm install --legacy-peer-deps
       - name: build
         run: npm run build
-      - name: test
-        run: npm run test 
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@4.1.4
+      
+  deploy:     
+    runs-on: ubuntu-latest
+      steps: 
+        - name: Code
+        uses: actions/checkout@v3
+      - name: Install node v22.1
+        uses: actions/setup-node@v3
         with:
-          folder: build
-          branch: gh-pages
-        env:
-          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          node-version: 22.1
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+      - name: build
+        run: npm run build
+        - name: Deploy
+          uses: JamesIves/github-pages-deploy-action@4.1.4
+          with:
+            folder: build
+            branch: gh-pages
+          env:
+            ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
