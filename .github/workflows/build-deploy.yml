@@ -29,7 +29,7 @@ jobs:
       - name: test
         run: npm run test > test.txt
       - name: Upload test results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-results
           path: test.txt
@@ -39,7 +39,7 @@ jobs:
     needs: test
     steps:
       - name: Download test
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: test-results
       - name: Print test results
