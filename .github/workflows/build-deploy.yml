@@ -27,7 +27,27 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
       - name: test
-        run: npm run test 
+        run: npm run test > test.txt
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: test.txt
+  download-test:
+    name: Download test results
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Download test
+        uses: actions/download-artifact@v3
+        with:
+          name: test-results
+      - name: Print test results
+        shell: bash
+        run: | 
+          value='cat test.txt'
+          echo $value
+
   build:
     needs: test
     runs-on: ubuntu-latest
