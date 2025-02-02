@@ -6,13 +6,13 @@ on:
   pull_request:
     types:
       - opened
-  push:
-    branches:
-      - main
-      - 'hotfix-*'
-      - 'feature/**'
-    path-ignore:
-      - '.github/workflows/*'
+  # push:
+  #   branches:
+  #     - main
+  #     - 'hotfix-*'
+  #     - 'feature/**'
+  #   path-ignore:
+  #     - '.github/workflows/*'
   
 jobs:
   test:
